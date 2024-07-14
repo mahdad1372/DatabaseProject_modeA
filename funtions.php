@@ -49,6 +49,21 @@ function create_User(){
         }
     }
 }
+function deleteProductById(){
+    global $conn;
+    if(isset($_GET['product_id'])){
+        $id =  $_GET['product_id'];
+        echo $id;
+        $sql_delete = "DELETE FROM Products WHERE product_id = $id "; 
+        $delete = $conn->query($sql_delete);
+     }
+}
+function list_product(){
+    global $conn;
+    $sql = "SELECT * FROM Products"; 
+    $result = $conn->query($sql);
+    return $result;
+}
 function create_Product(){
     global $conn;
     $sql = "CREATE TABLE Products (
@@ -75,6 +90,52 @@ function create_Product(){
     
         // SQL query to insert the data into the Users table
         $sql = "INSERT INTO Products (name, description, price,stock_quantity) VALUES ('$name', '$description', '$price',$stock_quantity)";
+    
+        // Execute the query
+        if ($conn->query($sql) === TRUE) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+}
+function deleteCategoryById(){
+    global $conn;
+    if(isset($_GET['product_id'])){
+        $id =  $_GET['product_id'];
+        echo $id;
+        $sql_delete = "DELETE FROM Products WHERE product_id = $id "; 
+        $delete = $conn->query($sql_delete);
+     }
+}
+function list_Category(){
+    global $conn;
+    $sql = "SELECT * FROM Products"; 
+    $result = $conn->query($sql);
+    return $result;
+}
+function create_Category(){
+    global $conn;
+    $sql = "CREATE TABLE Categories (
+    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description VARCHAR(100)
+);";
+    
+    // Execute the query
+    if ($conn->query($sql) === TRUE) {
+        echo "Table Product created successfully";
+    } else {
+        echo "Error creating table: " . $conn->error;
+    }
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Get the form data
+        $name = $_POST['name'];
+        $description = $_POST['description'];
+    
+    
+        // SQL query to insert the data into the Users table
+        $sql = "INSERT INTO Products (name, description) VALUES ('$name', '$description')";
     
         // Execute the query
         if ($conn->query($sql) === TRUE) {

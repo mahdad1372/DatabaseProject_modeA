@@ -1,8 +1,8 @@
 <?php
 require("./db.php");
 require_once("./funtions.php");
-deleteUserById();
-$result = list_product();
+deleteOrderItemById();
+$result = list_Order_Item();
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,16 +11,16 @@ table, th, td {
   border:1px solid black;
 }
 </style>
-    <head>Product List</head>
+    <head>Order Item List</head>
     <body>
        <div>
        <table>
   <tr>
-    <th>Product_id</th>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Price</th>
-    <th>Quantity</th>
+    <th>order_item_id</th>
+    <th>order_id</th>
+    <th>product_id</th>
+    <th>quantity</th>
+    <th>price</th>
     <th>Delete</th>
   </tr>
   <?php 
@@ -29,12 +29,12 @@ table, th, td {
         while($results=mysqli_fetch_assoc($result)){
             echo "
             <tr>
+              <td>".$results['order_item_id']."</td>
+              <td>".$results['order_id']."</td>
               <td>".$results['product_id']."</td>
-              <td>".$results['name']."</td>
-              <td>".$results['description']."</td>
+              <td>".$results['quantity']."</td>
               <td>".$results['price']."</td>
-              <td>".$results['stock_quantity']."</td>
-              <td><a href='product_list.php?product_id=".$results['product_id']."'>Delete</a></td>
+              <td><a href='orderitem_list.php?order_item_id=".$results['order_item_id']."'>Delete</a></td>
             </tr>";
         }
       }     

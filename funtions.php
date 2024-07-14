@@ -101,16 +101,16 @@ function create_Product(){
 }
 function deleteCategoryById(){
     global $conn;
-    if(isset($_GET['product_id'])){
-        $id =  $_GET['product_id'];
+    if(isset($_GET['category_id'])){
+        $id =  $_GET['category_id'];
         echo $id;
-        $sql_delete = "DELETE FROM Products WHERE product_id = $id "; 
+        $sql_delete = "DELETE FROM Categories WHERE category_id = $id "; 
         $delete = $conn->query($sql_delete);
      }
 }
 function list_Category(){
     global $conn;
-    $sql = "SELECT * FROM Products"; 
+    $sql = "SELECT * FROM Categories"; 
     $result = $conn->query($sql);
     return $result;
 }

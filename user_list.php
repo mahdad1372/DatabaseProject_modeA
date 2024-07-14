@@ -1,13 +1,8 @@
 <?php
 require("./db.php");
-if(isset($_GET['id'])){
-   $id =  $_GET['id'];
-   $sql_delete = "DELETE FROM users WHERE id = $id "; 
-   $delete = $conn->query($sql_delete);
-}
-$sql = "SELECT * FROM users"; 
-$result = $conn->query($sql);
-$conn->close();
+require_once("./funtions.php");
+deleteUserById();
+$result = getuserlist();
 ?>
 <!DOCTYPE html>
 <html>
@@ -22,23 +17,24 @@ table, th, td {
        <table>
   <tr>
     <th>ID</th>
-    <th>First name</th>
-    <th>Last Name</th>
+    <th>Name</th>
     <th>Email</th>
+    <th>password</th>
+    <th>created_at</th>
     <th>Delete</th>
   </tr>
-  <!-- PHP CODE TO FETCH DATA FROM ROWS -->
   <?php 
       $nums = mysqli_num_rows($result);
       if($nums>0){
         while($results=mysqli_fetch_assoc($result)){
             echo "
             <tr>
-              <td>".$results['id']."</td>
-              <td>".$results['firstname']."</td>
-              <td>".$results['lastname']."</td>
+              <td>".$results['user_id']."</td>
+              <td>".$results['name']."</td>
               <td>".$results['email']."</td>
-              <td><a href='user_list.php?id=".$results['id']."'>Delete</a></td>
+              <td>".$results['password']."</td>
+              <td>".$results['created_at']."</td>
+              <td><a href='user_list.php?user_id=".$results['user_id']."'>Delete</a></td>
             </tr>";
         }
       }     

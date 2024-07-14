@@ -135,7 +135,57 @@ function create_Category(){
     
     
         // SQL query to insert the data into the Users table
-        $sql = "INSERT INTO Products (name, description) VALUES ('$name', '$description')";
+        $sql = "INSERT INTO Categories (name, description) VALUES ('$name', '$description')";
+    
+        // Execute the query
+        if ($conn->query($sql) === TRUE) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+}
+function deleteOrdersById(){
+    global $conn;
+    if(isset($_GET['order_id'])){
+        $id =  $_GET['order_id'];
+        echo $id;
+        $sql_delete = "DELETE FROM Orders WHERE order_id = $id "; 
+        $delete = $conn->query($sql_delete);
+     }
+}
+function list_Order(){
+    global $conn;
+    $sql = "SELECT * FROM Orders"; 
+    $result = $conn->query($sql);
+    return $result;
+}
+function create_Order(){
+    global $conn;
+    $sql = "CREATE TABLE Orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(50),
+    total_amount DECIMAL(10, 2),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);";
+    
+    // Execute the query
+    if ($conn->query($sql) === TRUE) {
+        echo "Table Product created successfully";
+    } else {
+        echo "Error creating table: " . $conn->error;
+    }
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Get the form data
+        $user_id = $_POST['user_id'];
+        $status = $_POST['status'];
+        $total_amount = $_POST['total_amount'];
+    
+    
+        // SQL query to insert the data into the Users table
+        $sql = "INSERT INTO Orders (user_id, status,total_amount) VALUES ('$user_id', '$status', '$total_amount')";
     
         // Execute the query
         if ($conn->query($sql) === TRUE) {

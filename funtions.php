@@ -249,10 +249,10 @@ function create_Order_item(){
 }
 function deleteproductcategoryById(){
     global $conn;
-    if(isset($_GET['order_item_id'])){
-        $id =  $_GET['order_item_id'];
-        echo $id;
-        $sql_delete = "DELETE FROM Product_Categories WHERE order_item_id = $id "; 
+    if(isset($_GET['product_id'],$_GET['category_id'])){
+        $id_product =  $_GET['product_id'];
+        $id_category =  $_GET['category_id'];
+        $sql_delete = "DELETE FROM Product_Categories WHERE product_id  = $id_product AND category_id  = $id_category"; 
         $delete = $conn->query($sql_delete);
      }
 }
